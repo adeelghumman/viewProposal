@@ -1,0 +1,83 @@
+<div class="mx-3">
+  <div class="flex justify-between my-2">
+    <span class="font-semibold text-xl text-black"> {{'proposal.signDocument' | translate}}</span>
+    <div class="cursor-pointer flex-col justify-center">
+      <svg
+        (click)="closeModal()"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="#FF865D"
+        class="w-5 h-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </div>
+  </div>
+  <hr />
+
+  <nav aria-label="Progress" class="mt-2">
+    <ol role="list" class="space-y-4 md:flex md:space-y-0 md:space-x-8">
+      <li class="md:flex-1 cursor-pointer" (click)="setOption('upload')">
+        <a
+          class="group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-secondary-tint md:border-l-0 md:border-b-4 md:pl-0 md:pb-4 md:pt-0"
+          [ngClass]="{ '!border-secondary-base': option == 'upload' }"
+        >
+          <span class="text-sm font-medium text-gray-500"
+            >{{'proposal.uploadSignature' | translate}} </span
+          >
+        </a>
+      </li>
+
+      <li class="md:flex-1 cursor-pointer" (click)="setOption('draw')">
+        <a
+          class="flex flex-col border-l-4 border-gray-200 py-2 pl-4 md:border-l-0 md:border-b-4 md:pl-0 md:pb-4 md:pt-0"
+          aria-current="step"
+          [ngClass]="{ '!border-secondary-base': option == 'draw' }"
+        >
+          <span class="text-sm font-medium text-gray-500">{{'proposal.signSignature' | translate}}</span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+
+  <div *ngIf="option == 'upload'" class="flex w-full justify-between mt-3">
+    <div class="flex w-full flex-col hover:z-0">
+      <div class="flex w-full notes-dropzone-white z-[-1] hover:z-0">
+        <ngx-dropzone class="w-full" (change)="onSelect($event)">
+          <div
+            class="flex w-full flex-col justify-center items-center cursor-pointer border border-secondary-base rounded-lg p-4"
+          >
+            <span class="text-secondary-base font-medium">{{'proposal.upload.title' | translate}}</span>
+            <span class="text-gray-500 text-xs font-medium"
+              >{{'proposal.upload.description' | translate}}</span
+            >
+          </div>
+        </ngx-dropzone>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center align-center mt-2">
+    <canvas [hidden]="option !== 'draw'" #signaturePad></canvas>
+  </div>
+
+  <div *ngIf="option == 'draw'" class="flex justify-center align-center ">
+    <div class=" flex border border-gray-500 rounded-md  px-2 m-1">
+      <span class="cursor-pointer text-gray-500 text-sm" (click)="clearSignature()">{{'shared.clear' | translate}}</span>
+    </div>
+  </div>
+
+  <button (click)="closeModal()" class="flex items-center gap-x-2">
+    <div
+      class="cursor-pointer mb-2 mt-2 inline-flex items-center rounded-md border border-transparent bg-secondary-base px-6 py-2 text-sm font-medium text-secondary-contrast shadow-sm hover:bg-secondary-shade"
+    >
+      <span class="text-white font-inter font-medium text-sm">{{'shared.accept' | translate}}</span>
+    </div>
+  </button>
+</div>

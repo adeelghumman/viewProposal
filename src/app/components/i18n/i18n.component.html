@@ -1,0 +1,33 @@
+<div *ngIf="(currentLang$ | async) as lang" (click)="getAllLanguages()" id="change-language" class="hover:bg-secondary-base py-2 px-4 rounded-full cursor-pointer">
+  <span class="fi fi-{{lang.flagCode}}"></span>
+</div>
+
+<ion-popover trigger="change-language" [dismissOnSelect]="true" [backdropDismiss]="true" [keepContentsMounted]="true">
+  <ng-template>
+    <div *ngIf="(loader$ | async)" class="flex items-center justify-center">
+      <ion-spinner color="primary" type="indeterminate" name="crescent"></ion-spinner>
+    </div>
+    <div *ngIf="!(loader$ | async)" class="font-semibold">
+      <div class="px-4 py-2 border-b border-gray-200">
+        <span class="text-sm text-gray-500">Change language</span>
+      </div>
+      <div class="py-2">
+        <ion-list lines="none">
+          <ion-item (click)="changeLanguage(l)" *ngFor="let l of (languages$ | async)">
+            <div [ngClass]="{'bg-secondary-light': (currentLang$ | async)?.id === l.id}" class="flex items-center justify-between w-full group cursor-pointer p-2 rounded-lg">
+              <div class="flex items-center justify-start">
+                <span class="fi fi-{{l.flagCode}}"></span>
+                <span class="ml-2 text-sm text-gray-600 group-hover:font-semibold group-hover:text-gray-700">{{l.name}}</span>
+              </div>
+              <div class="flex items-center justify-end">
+                <svg *ngIf="(currentLang$ | async)?.id === l.id" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-green-600">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>              
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ng-template>
+</ion-popover>

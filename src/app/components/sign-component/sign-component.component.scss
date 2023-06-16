@@ -1,0 +1,14 @@
+.notes-dropzone-white {
+    ngx-dropzone {
+        display: flex;
+        align-items: center;
+        height: unset;
+        cursor: pointer;
+        color: #717386;
+        border: 0px;
+        border-radius: 5px;
+        font-size: 16px;
+        overflow-x: auto;
+        background: white !important;
+    }
+}
