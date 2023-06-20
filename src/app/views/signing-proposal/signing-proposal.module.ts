@@ -8,6 +8,7 @@ import { SigningProposalPage } from './signing-proposal.page';
 import { SignComponentModule } from '../../components/sign-component/sign-component.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { i18nComponentModule } from 'src/app/components/i18n/i18n.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { i18nComponentModule } from 'src/app/components/i18n/i18n.module';
     PdfViewerModule,
     SignComponentModule,
     TranslateModule,
-    i18nComponentModule
+    i18nComponentModule,
+    EditorModule
   ],
   declarations: [SigningProposalPage]
 })

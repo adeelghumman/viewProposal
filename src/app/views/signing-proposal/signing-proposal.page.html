@@ -2,51 +2,53 @@
   <div class="flex flex-col md:flex-row gap-y-3 md:gap-y-0 gap-x-5 w-full p-3">
     <img class="h-auto w-40" src="../../assets/logo/aegis-logo-blue.png" />
     <div class="felx flex-col w-full">
-      <div class="font-bold text-xl  text-black">{{'proposal.view' | translate}}</div>
+      <div class="font-bold text-xl text-black">
+        {{'proposal.view' | translate}}
+      </div>
       <div class="font-semibold text-md text-gray-500 md:w-[70%]">
         {{'proposal.description' | translate}}
       </div>
     </div>
   </div>
-  
 
   <div class="mx-3">
     <div class="sm:hidden">
       <label for="tabs" class="sr-only">Select a tab</label>
-      <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-[#FF865D] focus:ring-[#FF865D]">
-        <option *ngFor="let d of documentDetails; let i = index" (click)="selectDocument(d, i)" >{{d.documentName}}</option>
+      <select
+        id="tabs"
+        name="tabs"
+        class="block w-full rounded-md border-gray-300 focus:border-[#FF865D] focus:ring-[#FF865D]"
+      >
+        <option
+          *ngFor="let d of documentDetails; let i = index"
+          (click)="selectDocument(d, i)"
+        >
+          {{d.documentName}}
+        </option>
       </select>
     </div>
-    <div  class="hidden sm:block">
+    <div class="hidden sm:block">
       <div class="border-b border-gray-200">
-        <nav  class="-mb-px flex flex-row " aria-label="Tabs">
-          <a *ngFor="let d of documentDetails; let i = index" (click)="selectDocument(d, i)" [ngClass]="{'text-secondary-base border-[#FF865D] bg-gray-100 ' : selectedDocument == d.documentName}" class="border-transparent mx-1 rounded-xl cursor-pointer text-gray-500 hover:bg-gray-100  w-1/4 border-b-2 py-4 px-1 text-center text-sm font-medium">{{d.documentName}}</a>
-        </nav>    
+        <nav class="-mb-px flex flex-row" aria-label="Tabs">
+          <a
+            *ngFor="let d of documentDetails; let i = index"
+            (click)="selectDocument(d, i)"
+            [ngClass]="{'text-secondary-base border-[#FF865D] bg-gray-100 ' : selectedDocument == d.documentName}"
+            class="border-transparent mx-1 rounded-xl cursor-pointer text-gray-500 hover:bg-gray-100 w-1/4 border-b-2 py-4 px-1 text-center text-sm font-medium"
+            >{{d.documentName}}</a
+          >
+        </nav>
       </div>
     </div>
   </div>
 
-  <div
-    class="h-full flex-col border-4 border-borderProposal-base rounded-lg m-3"
-  >
-      <pdf-viewer
-      *ngIf="!documentLoader"
-      class="bg-slate-100 justify-center"
-      [src]="'../../assets/sample.pdf'"
-      [render-text]="true"
-      [original-size]="true"
-      style="width: 100%; height: 100%"
-    ></pdf-viewer>
-
-    <div
-      *ngIf="documentLoader"
-      class="flex justify-center align-bottom w-full py-24"
-    >
-      <ion-spinner
-        name="crescent"
-        mode="indeterminate"
-        color="secondary"
-      ></ion-spinner>
+  <div class="flex-col border-4 border-borderProposal-base rounded-lg m-3">
+    <div class="w-full drop-down-class">
+      <editor
+        [init]="tinyMceConfig"
+        [(ngModel)]="initialValue"
+        [disabled]="true"
+      ></editor>
     </div>
   </div>
 
@@ -59,27 +61,42 @@
         >{{'i have read the proposal' }}</span
       >
     </div>
-    <span  class="text-sm font-medium text-gray-500"> {{currentDocument}} of {{documentDetails.length}}</span>
+    <span class="text-sm font-medium text-gray-500">
+      {{currentDocument}} of {{documentDetails.length}}</span
+    >
   </div>
 
   <div class="flex flex-col gap-y-6 mx-6">
-    <div class="flex flex-col-reverse sm:flex-row  mt-8 gap-x-8">
+    <div class="flex flex-col-reverse sm:flex-row mt-8 gap-x-8">
       <div class="sm:w-[50%] w-[100%] flex sm:flex-row flex-col gap-x-8">
         <div class="sm:w-[50%] w-[100%] gap-y-2 flex flex-col">
-          <input class="border-0 focus:ring-0 focus:outline-0" placeholder="{{'proposal.user.fullName' | translate}}"  >
+          <input
+            class="border-0 focus:ring-0 focus:outline-0"
+            placeholder="{{'proposal.user.fullName' | translate}}"
+          />
           <hr />
-          <div class="font-semibold text-md">{{'proposal.user.fullName' | translate}}</div>
+          <div class="font-semibold text-md">
+            {{'proposal.user.fullName' | translate}}
+          </div>
         </div>
-  
+
         <div class="sm:w-[50%] w-[100%] gap-y-2 flex flex-col">
-          <input class="border-0 focus:ring-0 focus:outline-0" placeholder="{{'proposal.user.title' | translate}}"  >
+          <input
+            class="border-0 focus:ring-0 focus:outline-0"
+            placeholder="{{'proposal.user.title' | translate}}"
+          />
           <hr />
-          <div class="font-semibold text-md">{{'proposal.user.title' | translate}}</div>
+          <div class="font-semibold text-md">
+            {{'proposal.user.title' | translate}}
+          </div>
         </div>
       </div>
 
-      <div class="sm:w-[50%] w-[100%] mb-5 sm:mt-0 gap-y-2 flex flex-col" >
-        <div (click)=" addSign()" class="flex gap-x-2 cursor-pointer w-full justify-center">
+      <div class="sm:w-[50%] w-[100%] mb-5 sm:mt-0 gap-y-2 flex flex-col">
+        <div
+          (click)=" addSign()"
+          class="flex gap-x-2 cursor-pointer w-full justify-center"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -94,11 +111,13 @@
               d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
             />
           </svg>
-          <span class="text-secondary-base"> {{'proposal.signDocument' | translate}}</span>
+          <span class="text-secondary-base">
+            {{'proposal.signDocument' | translate}}</span
+          >
         </div>
         <hr />
         <div class="font-semibold text-md flex justify-center">
-          <span>{{'proposal.signature.title' | translate}}  </span>
+          <span>{{'proposal.signature.title' | translate}} </span>
           <span class="font-semibold text-sm text-gray-500 ml-2">
             {{'proposal.signature.description' | translate}}
           </span>
@@ -108,20 +127,24 @@
   </div>
 
   <div class="justify-between flex mb-10 mx-6 mt-8">
-    <div class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center border-link-base border">
+    <div
+      class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center border-link-base border"
+    >
       <span
         class="text-link-base text-inter font-medium text-sm cursor-pointer"
       >
-      {{'shared.skip' | translate}}
+        {{'shared.skip' | translate}}
       </span>
     </div>
 
-    <div class="flex justify-center gap-x-2 ">
-      <div class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center border-link-base border">
+    <div class="flex justify-center gap-x-2">
+      <div
+        class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center border-link-base border"
+      >
         <span
           class="text-link-base text-inter font-medium text-sm cursor-pointer"
         >
-        {{'shared.cancel' | translate}}
+          {{'shared.cancel' | translate}}
         </span>
       </div>
       <button
@@ -129,7 +152,9 @@
         type="submit"
       >
         <div class="flex justify-center items-center" role="status"></div>
-        <span class="text-white font-inter font-medium text-sm">{{'shared.accept' | translate}}</span>
+        <span class="text-white font-inter font-medium text-sm"
+          >{{'shared.accept' | translate}}</span
+        >
       </button>
     </div>
   </div>
