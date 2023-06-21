@@ -6,23 +6,24 @@ import SignaturePad from 'signature_pad';
   templateUrl: './sign-component.component.html',
   styleUrls: ['./sign-component.component.scss'],
 })
-export class SignComponentComponent implements OnInit , AfterViewInit {
- 
+export class SignComponentComponent implements OnInit, AfterViewInit {
+
   @ViewChild('signaturePad', { static: false }) signaturePadElement!: ElementRef;
   signaturePad: any;
-  option = 'upload'
-  imagesrc = ''
+  option = 'upload';
+  imagesrc = '';
+  errorMessage: string = '';
 
   constructor(private _modal: ModalController) { }
 
   ngOnInit() {
-    
+
   }
-  ngAfterViewInit(){
-     this.signaturePad = new SignaturePad(this.signaturePadElement.nativeElement, {
+  ngAfterViewInit() {
+    this.signaturePad = new SignaturePad(this.signaturePadElement.nativeElement, {
       backgroundColor: '#ADB9BF',
-     });
-   }
+    });
+  }
 
   closeModal() {
     const signatureData = this.signaturePad.toDataURL("image/jpeg");
@@ -33,9 +34,17 @@ export class SignComponentComponent implements OnInit , AfterViewInit {
     this.option = type;
     this.signaturePad.clear();
   }
+
   onSelect(e: any) {
-    console.log(e.addedFiles[0]);
-    this._modal.dismiss(e.addedFiles[0], 'save');
+    const file = e.addedFiles[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    this.errorMessage = '';
+
+    if (!allowedTypes.includes(file.type)) {
+      this.errorMessage = 'Invalid file type. Please select an image (JPEG, PNG, or GIF).';
+    } else {
+      this._modal.dismiss(URL.createObjectURL(e.addedFiles[0]), 'save');
+    }
   }
 
   clearSignature() {

@@ -49,7 +49,7 @@
   <div *ngIf="option == 'upload'" class="flex w-full justify-between mt-3">
     <div class="flex w-full flex-col hover:z-0">
       <div class="flex w-full notes-dropzone-white z-[-1] hover:z-0">
-        <ngx-dropzone class="w-full" (change)="onSelect($event)">
+        <ngx-dropzone [accept]="'image/*'" class="w-full" (change)="onSelect($event)" >
           <div
             class="flex w-full flex-col justify-center items-center cursor-pointer border border-secondary-base rounded-lg p-4"
           >
@@ -59,7 +59,8 @@
             >
           </div>
         </ngx-dropzone>
-      </div>
+        <span *ngIf="errorMessage !== ''" class="text-red-600 " >{{errorMessage}} </span>
+      </div>  
     </div>
   </div>
 
