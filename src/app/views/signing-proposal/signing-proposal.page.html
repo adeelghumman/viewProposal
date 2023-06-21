@@ -42,8 +42,11 @@
     </div>
   </div>
 
-  <div  class="flex-col border-4 border-borderProposal-base rounded-lg m-3">
-    <div class="w-full drop-down-class">
+  <div *ngIf="documentLoader" class="flex items-center justify-center gap-x-2 my-20">
+    <ion-spinner name="crescent" color="secondary" type="indeterminate"></ion-spinner>
+  </div>
+  <div *ngIf="!documentLoader" class="flex-col border-4 border-borderProposal-base rounded-lg m-3">
+    <div  class="w-full drop-down-class">
       <editor
         [init]="tinyMceConfig"
         [(ngModel)]="initialValue"
@@ -92,8 +95,8 @@
         </div>
       </div>
       
-      <div class="sm:w-[50%] w-[100%] mb-5 sm:mt-0 gap-y-2 flex flex-col ">
-        <div class = "flex gap-x-2 cursor-pointer w-full justify-center">
+      <div class="sm:w-[50%] w-[100%] mb-5 mt-0 gap-y-2 flex flex-col ">
+        <div *ngIf="signUrl !== ''" class = "flex gap-x-2 cursor-pointer w-full justify-center">
           <img  class="justify-center items-center " src ={{signUrl}} height="35%" width="35%">
         </div>
         <div
