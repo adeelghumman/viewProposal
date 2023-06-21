@@ -11,6 +11,7 @@ export class SignComponentComponent implements OnInit , AfterViewInit {
   @ViewChild('signaturePad', { static: false }) signaturePadElement!: ElementRef;
   signaturePad: any;
   option = 'upload'
+  imagesrc = ''
 
   constructor(private _modal: ModalController) { }
 
@@ -24,7 +25,8 @@ export class SignComponentComponent implements OnInit , AfterViewInit {
    }
 
   closeModal() {
-    this._modal.dismiss();
+    const signatureData = this.signaturePad.toDataURL("image/jpeg");
+    this._modal.dismiss(signatureData, 'save');
   }
 
   setOption(type: string) {
@@ -32,6 +34,8 @@ export class SignComponentComponent implements OnInit , AfterViewInit {
     this.signaturePad.clear();
   }
   onSelect(e: any) {
+    console.log(e.addedFiles[0]);
+    this._modal.dismiss(e.addedFiles[0], 'save');
   }
 
   clearSignature() {

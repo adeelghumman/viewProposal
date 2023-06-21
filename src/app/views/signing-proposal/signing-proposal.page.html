@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <div class="flex-col border-4 border-borderProposal-base rounded-lg m-3">
+  <div  class="flex-col border-4 border-borderProposal-base rounded-lg m-3">
     <div class="w-full drop-down-class">
       <editor
         [init]="tinyMceConfig"
@@ -91,8 +91,11 @@
           </div>
         </div>
       </div>
-
-      <div class="sm:w-[50%] w-[100%] mb-5 sm:mt-0 gap-y-2 flex flex-col">
+      
+      <div class="sm:w-[50%] w-[100%] mb-5 sm:mt-0 gap-y-2 flex flex-col ">
+        <div class = "flex gap-x-2 cursor-pointer w-full justify-center">
+          <img  class="justify-center items-center " src ={{signUrl}} height="35%" width="35%">
+        </div>
         <div
           (click)=" addSign()"
           class="flex gap-x-2 cursor-pointer w-full justify-center"
