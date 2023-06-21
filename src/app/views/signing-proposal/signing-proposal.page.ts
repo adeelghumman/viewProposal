@@ -5,6 +5,7 @@ import { SignComponentComponent } from '../../components/sign-component/sign-com
 import { i18nService } from 'src/app/shared/services/i18n/i18n.service';
 import { language } from 'src/app/shared/store/i18n/i18n.model';
 import { obj } from '../signing-proposal/data';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-signing-proposal',
@@ -23,13 +24,16 @@ export class SigningProposalPage implements OnInit, AfterViewInit {
 
   tinyMceConfig = {
     menubar: false,
+    disabled: true,
   };
 
   documentDetails: any = []
   selectedDocument: any = '';
+  tinyMceApiKey: string = '';
 
   ngOnInit() {
-    this.documentDetails = obj
+    this.documentDetails = obj;
+    this.tinyMceApiKey = environment.tinyMce.apiKey;
     this.selectedDocument = this.documentDetails[0].documentName;
     setTimeout(() => {
       this.documentLoader = false;
@@ -50,6 +54,9 @@ export class SigningProposalPage implements OnInit, AfterViewInit {
     await m.present();
 
     m.onDidDismiss().then((Role) => {
+
+      console.log(Role.data);
+      
       if (Role.role === 'save') {
         this.signUrl = Role.data;
       }
@@ -72,6 +79,7 @@ export class SigningProposalPage implements OnInit, AfterViewInit {
       this.currentDocument = index + 1;
       this.initialValue = this.documentDetails[index].htmlValue;
       this.documentLoader = false;
+      this.signUrl ='';
     }, 1000);
   }
 

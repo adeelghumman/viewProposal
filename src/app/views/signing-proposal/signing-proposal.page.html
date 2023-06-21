@@ -51,6 +51,7 @@
         [init]="tinyMceConfig"
         [(ngModel)]="initialValue"
         [disabled]="true"
+        [apiKey]="tinyMceApiKey"
       ></editor>
     </div>
   </div>
@@ -134,10 +135,10 @@
 
   <div class="justify-between flex mb-10 mx-6 mt-8">
     <div
-      class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center border-link-base border"
+      class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center cursor-pointer border-link-base border"
     >
       <span
-        class="text-link-base text-inter font-medium text-sm cursor-pointer"
+        class="text-link-base text-inter font-medium text-sm "
       >
         {{'shared.skip' | translate}}
       </span>
@@ -145,10 +146,10 @@
 
     <div class="flex justify-center gap-x-2">
       <div
-        class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center border-link-base border"
+        class="hover:bg-gray-100 w-auto rounded-md py-2 px-4 flex justify-center cursor-pointer border-link-base border"
       >
         <span
-          class="text-link-base text-inter font-medium text-sm cursor-pointer"
+          class="text-link-base text-inter font-medium text-sm "
         >
           {{'shared.cancel' | translate}}
         </span>

@@ -34,17 +34,20 @@ export class SignComponentComponent implements OnInit, AfterViewInit {
     this.option = type;
     this.signaturePad.clear();
   }
-
   onSelect(e: any) {
-    const file = e.addedFiles[0];
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    this.errorMessage = '';
+    
+      const file = e.addedFiles[0];
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      this.errorMessage = '';
+  
+      if (!allowedTypes.includes(file.type)) {
+        this.errorMessage = 'Invalid file type. Please select an image (JPEG, PNG, or GIF).';
+      } else {
+        
+        this._modal.dismiss(URL.createObjectURL(e.addedFiles[0]), 'save');
+      }
+    
 
-    if (!allowedTypes.includes(file.type)) {
-      this.errorMessage = 'Invalid file type. Please select an image (JPEG, PNG, or GIF).';
-    } else {
-      this._modal.dismiss(URL.createObjectURL(e.addedFiles[0]), 'save');
-    }
   }
 
   clearSignature() {
