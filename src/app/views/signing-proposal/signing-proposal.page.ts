@@ -37,7 +37,7 @@ export class SigningProposalPage implements OnInit, AfterViewInit {
     this.selectedDocument = this.documentDetails[0].documentName;
     setTimeout(() => {
       this.documentLoader = false;
-    }, 1000);
+    }, 2000);
   }
 
   ngAfterViewInit() {
